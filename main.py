@@ -2,6 +2,10 @@ import json
 
 import requests
 from PIL import Image
+import re
+
+# list of letters that cannot be used for filename
+badchars = ["\\","/",":","*","?","\"","<",">","|"]
 
 # Loads settings.json file
 file = open("settings.json")
@@ -30,6 +34,15 @@ def getData(i):
 
 def Main():
     i = input("Experience Id: ")
+    if i.isdigit() is False:
+        # Extracts Experience id from game link.
+        result = re.search('https://www.roblox.com/games/(.*)/', i)
+        if result:
+            print(f"Got Experience Id from Link {result.group(1)}")
+            i = result.group(1)
+        else:
+            print("Error: Entered Experience Id is Invalid.")
+            Main()
     match settingsjson['nameMode']:
         case -1:
             name = input("Enter a Name for your Deep Link: ")
@@ -41,7 +54,13 @@ def Main():
         case default:
             print("Warning: Invalid 'nameMode' variable.\nThe Deep link name will be set to Experience Id...")
             name = i
-    with open(f"{name}.url", "w") as f:
+    test_name = name
+    for x in badchars:
+        test_name = test_name.replace(x, '')
+
+    print(test_name)
+
+    with open(f"{test_name}.url", "w") as f:
         f.write("[InternetShortcut]\nIDList=\n")
         f.write(f"URL=roblox://placeId={i}")
     Main()
