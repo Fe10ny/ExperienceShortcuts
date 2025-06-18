@@ -36,7 +36,7 @@ def Main():
     i = input("Experience Id: ")
     if i.isdigit() is False:
         # Extracts Experience id from game link.
-        result = re.search('https://www.roblox.com/games/(.*)/', i)
+        result = re.search('games/(.*)/', i)
         if result:
             print(f"Got Experience Id from Link {result.group(1)}")
             i = result.group(1)
