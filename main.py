@@ -1,7 +1,8 @@
 import json
+import os, sys
 
 import requests
-from PIL import Image
+from PIL import Image, ImageOps
 import re
 
 # list of letters that cannot be used for filename
@@ -11,29 +12,38 @@ badchars = ["\\","/",":","*","?","\"","<",">","|"]
 file = open("settings.json")
 settingsjson = json.load(file)
 
+size = (100,100)
 
 def downloadIcon(i):
     r = requests.get(f"https://thumbnails.roblox.com/v1/places/gameicons?placeIds={i}&returnPolicy=PlaceHolder&size=512x512&format=Png&isCircular=false")
     js = r.json()
     url = js['data'][0]['imageUrl']
 
+    image = requests.get(url).content
+    with open(f'icons/{i}.jpg', 'wb') as x:
+        x.write(image)
+        with Image.open(f'icons/{i}.jpg') as im:
+            ImageOps.fit(im, size).save(f'icons/{i}.ico')
+        path = os.path.abspath(f'icons/{i}.ico')
+    os.remove(f'icons/{i}.jpg')
+    return path
+
 # Gets Universe id from Place id
 def getUniverseId(i):
     r = requests.get(f"https://apis.roblox.com/universes/v1/places/{i}/universe")
     js = r.json()
-    print(js)
     return js['universeId']
 
 # Gets Experience name from Universe id
 def getData(i):
     r = requests.get(f"https://games.roblox.com/v1/games?universeIds={i}")
     js = r.json()
-    print(js)
     return js['data'][0]['name']
 
 
 def Main():
     i = input("Experience Id: ")
+    universeId = None
     if i.isdigit() is False:
         # Extracts Experience id from game link.
         result = re.search('games/(.*)/', i)
@@ -50,19 +60,26 @@ def Main():
             name = i
         case 1:
             universeId = getUniverseId(i)
+            if universeId == None:
+                print("Error: Invalid Experience id")
+                Main()
             name = getData(universeId)
         case default:
             print("Warning: Invalid 'nameMode' variable.\nThe Deep link name will be set to Experience Id...")
             name = i
-    test_name = name
+
+    # Cleans String from bad characters.
     for x in badchars:
-        test_name = test_name.replace(x, '')
+        name = name.replace(x, '')
 
-    print(test_name)
-
-    with open(f"{test_name}.url", "w") as f:
+    # Creates an Deep link file.
+    with open(f"{name}.url", "w") as f:
         f.write("[InternetShortcut]\nIDList=\n")
-        f.write(f"URL=roblox://placeId={i}")
+        f.write(f"URL=roblox://placeId={i}\n")
+        if settingsjson["downloadExperienceIcon"]:
+            icon_file = downloadIcon(i)
+            f.write(f"IconFile={icon_file}\nIconIndex=0\nHotKey=0")
+
     Main()
 
 Main()
