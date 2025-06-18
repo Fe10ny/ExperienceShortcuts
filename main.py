@@ -1,9 +1,15 @@
 import json
 import os, sys
-
-import requests
-from PIL import Image, ImageOps
 import re
+
+
+try:
+    import requests
+    from PIL import Image, ImageOps
+except ImportError:
+    print(f"Error: one or more Pip Packages are missing")
+    input(f"Press enter to exit...")
+    sys.exit()
 
 # list of letters that cannot be used for filename
 badchars = ["\\","/",":","*","?","\"","<",">","|"]
