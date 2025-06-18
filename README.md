@@ -6,7 +6,7 @@
 3. The script will create a Deep link in the same folder as main.py is.
 4. Open Deep link file.
 # Settings
-- nameMode - Sets Deep link's Name based on mode.
+- nameMode - Sets Deep link's Name based on selected mode.
 - - -1 - Enter Deep link's name Manually.
 - - 0 - Set Experience Id as the Deep link name.
 - - 1 - Set Experience's name as the Deep link name.
