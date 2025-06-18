@@ -13,3 +13,7 @@ Simple script for roblox shortcuts/deep links creation.
 - downloadExperienceIcon - Downloads Experience's icon and applies onto Deep link.
 - - true - Enable Experience Icon Downloading.
 - - false - Disable Experience Icon Downloading.
+# Requirements
+- Python version 3.12.4
+- requests~=2.32.3
+- pillow~=11.2.1
