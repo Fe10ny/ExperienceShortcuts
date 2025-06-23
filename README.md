@@ -1,7 +1,7 @@
 # ExperienceShortcuts
 Simple script for roblox shortcuts/deep links creation.
 # How to use
-1. Download Zip file from Releases Tab and extract it.
+1. Download [Zip File](https://github.com/Fe10ny/ExperienceShortcuts/releases/latest) from Releases Tab and extract it.
 2. Start main.py and enter your Experience id or Experience Link (e.g. 47324)
 3. Enter a Name for new Deep link if needed.
 4. The script will create a Deep link in the same folder as main.py is.
