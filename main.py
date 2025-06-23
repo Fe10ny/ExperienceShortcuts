@@ -20,6 +20,7 @@ settingsjson = json.load(file)
 
 size = (100,100)
 
+# Downloads .jpg of Experience icon and replaces it with .ico file.
 def downloadIcon(i):
     r = requests.get(f"https://thumbnails.roblox.com/v1/places/gameicons?placeIds={i}&returnPolicy=PlaceHolder&size=512x512&format=Png&isCircular=false")
     js = r.json()
