@@ -7,7 +7,7 @@ try:
     import requests
     from PIL import Image, ImageOps
 except ImportError:
-    print(f"Error: one or more Pip Packages are missing")
+    print(f"Error: One or More of Pip Packages are missing")
     input(f"Press enter to exit...")
     sys.exit()
 
