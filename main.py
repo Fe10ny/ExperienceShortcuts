@@ -1,22 +1,22 @@
 import json
-import os, sys
+import os
 import re
-
-
-try:
-    import requests
-    from PIL import Image, ImageOps
-except ImportError:
-    print(f"Error: One or More of Pip Packages are missing")
-    input(f"Press enter to exit...")
-    sys.exit()
-
-# list of letters that cannot be used for filename
-badchars = ["\\","/",":","*","?","\"","<",">","|"]
+import sys
 
 # Loads settings.json file
 file = open("settings.json")
 settingsjson = json.load(file)
+
+try:
+    import requests
+    from PIL import Image, ImageOps
+except ImportError as error:
+    print(error)
+    input(f"Press enter to exit...")
+    sys.exit()
+
+# list of symbols that cannot be used for filename
+badchars = ["\\","/",":","*","?","\"","<",">","|"]
 
 size = (100,100)
 
@@ -32,6 +32,7 @@ def downloadIcon(i):
         with Image.open(f'icons/{i}.jpg') as im:
             ImageOps.fit(im, size).save(f'icons/{i}.ico')
         path = os.path.abspath(f'icons/{i}.ico')
+        x.close()
     os.remove(f'icons/{i}.jpg')
     return path
 
@@ -75,7 +76,7 @@ def Main():
             print("Warning: Invalid 'nameMode' variable.\nThe Deep link name will be set to Experience Id...")
             name = i
 
-    # Cleans String from bad characters.
+    # Cleans String from bad symbols.
     for x in badchars:
         name = name.replace(x, '')
 
@@ -86,6 +87,7 @@ def Main():
         if settingsjson["downloadExperienceIcon"]:
             icon_file = downloadIcon(i)
             f.write(f"IconFile={icon_file}\nIconIndex=0\nHotKey=0")
+        f.close()
 
     Main()
 
