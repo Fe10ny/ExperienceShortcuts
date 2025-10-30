@@ -12,10 +12,10 @@ Available variables and modes in settings.json file:
 - - -1 - Enter Deep link's name Manually.
 - - 0 - Set Experience Id as the Deep link name.
 - - 1 - Set Experience's name as the Deep link name.
-- downloadExperienceIcon - Downloads Experience's icon and applies onto Deep link.
-- - true - Enable Experience Icon Downloading.
+- downloadExperienceIcon - Downloads Experience's icon and applies onto Deep link. (Requires pillow package)
+- - true - Enable Experience Icon Downloading. 
 - - false - Disable Experience Icon Downloading.
 # Requirements
 - Python version 3.12.4
 - requests~=2.32.3
-- pillow~=11.2.1
+- pillow~=11.2.1 (Optional)
