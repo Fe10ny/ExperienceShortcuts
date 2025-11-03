@@ -1,20 +1,36 @@
 import json
 import os
 import re
-import sys
 
 # Loads settings.json file
 file = open("settings.json")
 settingsjson = json.load(file)
 
+added_imports = {"requests": False, "pillow": False}
+
 try:
     import requests
-    from PIL import Image, ImageOps
+    added_imports['requests'] = True
 except ImportError as error:
     print(error)
-    input(f"Press enter to exit...")
-    sys.exit()
+    print('Warning: some features will be unusable')
+    print('Note: This session\'s nameMode has been set to manual and downloadExperienceIcon to False due to "requests" package missing.')
+    settingsjson['nameMode'] = -1
+    settingsjson['downloadExperienceIcon'] = False
+    pass
 
+try:
+    from PIL import Image, ImageOps
+    added_imports['pillow'] = True
+except ImportError as error:
+    print(error)
+    print('Warning: some features will be unusable')
+    print('Note: This session\'s downloadExperienceIcon has been set to False due to "pillow" package missing.')
+    settingsjson['downloadExperienceIcon'] = False
+    pass
+
+print(added_imports)
+print(settingsjson)
 # list of symbols that cannot be used for filename
 badchars = ["\\","/",":","*","?","\"","<",">","|"]
 
