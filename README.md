@@ -6,6 +6,20 @@ Simple script for roblox shortcuts/deep links creation.
 3. Enter a Name for new Deep link if prompted.
 4. The script will create a Deep link in the same folder as main.py is.
 5. Open Deep link file.
+# How to get private server id
+## Auto method (Recommended):
+1. Open script
+2. Generate a new private server link (e.g. `https://www.roblox.com/share?code=60434bbd0fe2db8810d2cec4c2829f44&type=Server`)
+3. Copy it and paste it instead of Experience id.
+4. Done.
+## Manual method:
+1. Open Script
+2. Generate a new private server link (e.g. `https://www.roblox.com/share?code=ca1899def65902ad6279356efc83d0e0&type=Server`)
+3. Open newly Generated link in your browser.
+4. The browser will replace link with new one containing: `?privateServerLinkCode=`
+5. Proceed with script until it asks for Private server id/link (Requires "privateServer" setting to be set to true)
+6. Enter private server id/link from 4th step (e.g. `12345` or `https://www.roblox.com/games/47324/Experience-Name?privateServerLinkCode=12345#!/game-instances`)
+7. Done.
 # Settings
 Available variables and modes in settings.json file:
 - nameMode - Sets Deep link's Name based on selected mode.
