@@ -12,6 +12,9 @@ Available variables and modes in settings.json file:
 - - -1 - Enter Deep link's name Manually.
 - - 0 - Set Experience Id as the Deep link name.
 - - 1 - Set Experience's name as the Deep link name. (Requires request package)
+- privateServer - Prompt for private server id
+- - true - Asks for private server id
+- - false - Dont ask for private server id
 - downloadExperienceIcon - Downloads Experience's icon and applies onto Deep link. (Requires pillow and requests package)
 - - true - Enable Experience Icon Downloading. 
 - - false - Disable Experience Icon Downloading.
